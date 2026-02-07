@@ -31,6 +31,12 @@ struct ContentView: View {
                 .tabItem {
                     Label("Calendar", systemImage: "calendar")
                 }
+
+            // More Tab
+            MoreView()
+                .tabItem {
+                    Label("More", systemImage: "ellipsis.circle")
+                }
         }
     }
 }
