@@ -19,6 +19,18 @@ struct ContentView: View {
                 .tabItem {
                     Label("Roommates", systemImage: "person.2")
                 }
+
+            // Whiteboard Tab
+            WhiteboardView()
+                .tabItem {
+                    Label("Whiteboard", systemImage: "pencil.and.outline")
+                }
+
+            // More Tab
+            MoreView()
+                .tabItem {
+                    Label("More", systemImage: "ellipsis.circle")
+                }
         }
     }
 }
