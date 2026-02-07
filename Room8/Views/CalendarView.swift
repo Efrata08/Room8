@@ -4,28 +4,26 @@ import SwiftUI
 struct CalendarView: View {
     @StateObject private var viewModel = CalendarViewModel()
     @State private var showingAddItem = false
+    @State private var displayMode: DisplayMode = .calendar
+    @State private var currentMonth = Date()
+    @State private var selectedDate = Date()
+    private let calendar = Calendar.current
 
     var body: some View {
         NavigationView {
-            List {
-                if viewModel.sortedItems.isEmpty {
-                    VStack(spacing: 8) {
-                        Image(systemName: "calendar")
-                            .font(.system(size: 36))
-                            .foregroundColor(.secondary)
-                        Text("No calendar items yet")
-                            .font(.headline)
-                        Text("Add chores, events, or expense due dates")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+            VStack(spacing: 12) {
+                Picker("Display Mode", selection: $displayMode) {
+                    ForEach(DisplayMode.allCases, id: \.self) { mode in
+                        Text(mode.rawValue).tag(mode)
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+
+                if displayMode == .list {
+                    listView
                 } else {
-                    ForEach(viewModel.sortedItems) { item in
-                        CalendarItemRow(item: item)
-                    }
-                    .onDelete(perform: viewModel.deleteItems)
+                    calendarView
                 }
             }
             .navigationTitle("Calendar")
@@ -43,6 +41,155 @@ struct CalendarView: View {
                 AddCalendarItemView(viewModel: viewModel, isPresented: $showingAddItem)
             }
         }
+    }
+
+    private var listView: some View {
+        List {
+            if viewModel.sortedItems.isEmpty {
+                emptyState
+            } else {
+                ForEach(viewModel.sortedItems) { item in
+                    CalendarItemRow(item: item)
+                }
+                .onDelete(perform: viewModel.deleteItems)
+            }
+        }
+    }
+
+    private var calendarView: some View {
+        ScrollView {
+            VStack(spacing: 12) {
+                monthHeader
+                weekHeader
+                monthGrid
+                selectedDaySection
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 16)
+        }
+    }
+
+    private var monthHeader: some View {
+        HStack {
+            Button {
+                currentMonth = calendar.date(byAdding: .month, value: -1, to: currentMonth) ?? currentMonth
+            } label: {
+                Image(systemName: "chevron.left")
+            }
+            Spacer()
+            Text(monthTitle(for: currentMonth))
+                .font(.headline)
+            Spacer()
+            Button {
+                currentMonth = calendar.date(byAdding: .month, value: 1, to: currentMonth) ?? currentMonth
+            } label: {
+                Image(systemName: "chevron.right")
+            }
+        }
+        .padding(.top, 4)
+    }
+
+    private var weekHeader: some View {
+        let symbols = calendar.shortWeekdaySymbols
+        return HStack {
+            ForEach(symbols, id: \.self) { symbol in
+                Text(symbol.uppercased())
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity)
+            }
+        }
+    }
+
+    private var monthGrid: some View {
+        let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 7)
+        return LazyVGrid(columns: columns, spacing: 8) {
+            ForEach(monthDays(for: currentMonth).indices, id: \.self) { index in
+                let date = monthDays(for: currentMonth)[index]
+                CalendarDayCell(
+                    date: date,
+                    isSelected: date.map { calendar.isDate($0, inSameDayAs: selectedDate) } ?? false,
+                    hasItems: date.map { hasItems(on: $0) } ?? false,
+                    onSelect: { selectedDate = $0 }
+                )
+            }
+        }
+    }
+
+    private var selectedDaySection: some View {
+        let items = items(on: selectedDate)
+        return VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(selectedDate, style: .date)
+                    .font(.headline)
+                Spacer()
+                Button("Today") {
+                    selectedDate = Date()
+                    currentMonth = Date()
+                }
+                .font(.caption)
+            }
+            if items.isEmpty {
+                Text("No items for this day")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                ForEach(items) { item in
+                    CalendarItemRow(item: item)
+                }
+            }
+        }
+        .padding(.top, 8)
+    }
+
+    private var emptyState: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "calendar")
+                .font(.system(size: 36))
+                .foregroundColor(.secondary)
+            Text("No calendar items yet")
+                .font(.headline)
+            Text("Add chores, events, or expense due dates")
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+    }
+
+    private func monthTitle(for date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter.string(from: date)
+    }
+
+    private func monthDays(for date: Date) -> [Date?] {
+        guard let monthInterval = calendar.dateInterval(of: .month, for: date),
+              let range = calendar.range(of: .day, in: .month, for: date) else {
+            return []
+        }
+
+        let firstWeekday = calendar.component(.weekday, from: monthInterval.start)
+        let leading = (firstWeekday - calendar.firstWeekday + 7) % 7
+
+        var days: [Date?] = Array(repeating: nil, count: leading)
+        for day in range {
+            if let dayDate = calendar.date(byAdding: .day, value: day - 1, to: monthInterval.start) {
+                days.append(dayDate)
+            }
+        }
+
+        return days
+    }
+
+    private func items(on date: Date) -> [CalendarItem] {
+        viewModel.items.filter { calendar.isDate($0.date, inSameDayAs: date) }
+            .sorted { $0.date < $1.date }
+    }
+
+    private func hasItems(on date: Date) -> Bool {
+        viewModel.items.contains { calendar.isDate($0.date, inSameDayAs: date) }
     }
 }
 
@@ -96,6 +243,55 @@ private struct CalendarItemRow: View {
         }
         .padding(.vertical, 6)
     }
+}
+
+// MARK: - Calendar Day Cell
+private struct CalendarDayCell: View {
+    let date: Date?
+    let isSelected: Bool
+    let hasItems: Bool
+    let onSelect: (Date) -> Void
+
+    var body: some View {
+        Button {
+            if let date = date {
+                onSelect(date)
+            }
+        } label: {
+            VStack(spacing: 4) {
+                Text(dayNumber)
+                    .font(.callout)
+                    .foregroundColor(isSelected ? .white : .primary)
+                    .frame(maxWidth: .infinity)
+                if hasItems {
+                    Circle()
+                        .fill(isSelected ? Color.white : Color.blue)
+                        .frame(width: 6, height: 6)
+                } else {
+                    Circle()
+                        .fill(Color.clear)
+                        .frame(width: 6, height: 6)
+                }
+            }
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
+            .background(isSelected ? Color.blue : Color.clear)
+            .cornerRadius(8)
+        }
+        .disabled(date == nil)
+    }
+
+    private var dayNumber: String {
+        guard let date = date else { return "" }
+        let day = Calendar.current.component(.day, from: date)
+        return "\(day)"
+    }
+}
+
+// MARK: - Display Mode
+private enum DisplayMode: String, CaseIterable {
+    case calendar = "Calendar"
+    case list = "List"
 }
 
 // MARK: - Add Calendar Item View
