@@ -28,7 +28,6 @@
 		8BD5BFAA2F3862E1004A0553 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFA92F3862DF004A0553 /* MainTabView.swift */; };
 		8BD5BFAC2F3862F0004A0553 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFAB2F3862ED004A0553 /* HomeViewModel.swift */; };
 		8BD5BFAE2F38631A004A0553 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFAD2F386319004A0553 /* HomeView.swift */; };
-		8BD5BFB02F38632A004A0553 /* CalendarRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFAF2F386326004A0553 /* CalendarRootView.swift */; };
 		8BD5BFB22F386336004A0553 /* MoneyRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFB12F386334004A0553 /* MoneyRootView.swift */; };
 		8BD5BFB42F386350004A0553 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFB32F38634F004A0553 /* MoreView.swift */; };
 		8BD5BFB62F3867ED004A0553 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFB52F3867EB004A0553 /* Theme.swift */; };
@@ -36,6 +35,9 @@
 		8BD5BFBC2F386B76004A0553 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFBB2F386B74004A0553 /* SignUpView.swift */; };
 		8BD5BFC02F387602004A0553 /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFBF2F3875FE004A0553 /* SignUpEmailView.swift */; };
 		8BD5BFC42F38849D004A0553 /* AppTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFC32F38849B004A0553 /* AppTab.swift */; };
+		8BD5BFC92F38E76B004A0553 /* CalendarMonthCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFC82F38E768004A0553 /* CalendarMonthCard.swift */; };
+		8BD5BFCB2F38E781004A0553 /* TodayScheduleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFCA2F38E77C004A0553 /* TodayScheduleCard.swift */; };
+		8BD5BFCD2F38E797004A0553 /* TimelineListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5BFCC2F38E791004A0553 /* TimelineListCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +82,6 @@
 		8BD5BFA92F3862DF004A0553 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		8BD5BFAB2F3862ED004A0553 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		8BD5BFAD2F386319004A0553 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		8BD5BFAF2F386326004A0553 /* CalendarRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRootView.swift; sourceTree = "<group>"; };
 		8BD5BFB12F386334004A0553 /* MoneyRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyRootView.swift; sourceTree = "<group>"; };
 		8BD5BFB32F38634F004A0553 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
 		8BD5BFB52F3867EB004A0553 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -88,6 +89,10 @@
 		8BD5BFBB2F386B74004A0553 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		8BD5BFBF2F3875FE004A0553 /* SignUpEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpEmailView.swift; sourceTree = "<group>"; };
 		8BD5BFC32F38849B004A0553 /* AppTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTab.swift; sourceTree = "<group>"; };
+		8BD5BFC52F38E6D0004A0553 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
+		8BD5BFC82F38E768004A0553 /* CalendarMonthCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthCard.swift; sourceTree = "<group>"; };
+		8BD5BFCA2F38E77C004A0553 /* TodayScheduleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScheduleCard.swift; sourceTree = "<group>"; };
+		8BD5BFCC2F38E791004A0553 /* TimelineListCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineListCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -104,6 +109,11 @@
 		8BD5BF702F386261004A0553 /* Room8App_UIUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Room8App_UIUITests;
+			sourceTree = "<group>";
+		};
+		8BD5BFCF2F38E7CE004A0553 /* SwiftUI View */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "SwiftUI View";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -206,11 +216,15 @@
 		8BD5BF942F386279004A0553 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8BD5BFCF2F38E7CE004A0553 /* SwiftUI View */,
+				8BD5BFCC2F38E791004A0553 /* TimelineListCard.swift */,
+				8BD5BFCA2F38E77C004A0553 /* TodayScheduleCard.swift */,
+				8BD5BFC82F38E768004A0553 /* CalendarMonthCard.swift */,
+				8BD5BFC52F38E6D0004A0553 /* Untitled.swift */,
 				8BD5BFBF2F3875FE004A0553 /* SignUpEmailView.swift */,
 				8BD5BFBB2F386B74004A0553 /* SignUpView.swift */,
 				8BD5BFB32F38634F004A0553 /* MoreView.swift */,
 				8BD5BFB12F386334004A0553 /* MoneyRootView.swift */,
-				8BD5BFAF2F386326004A0553 /* CalendarRootView.swift */,
 				8BD5BFAD2F386319004A0553 /* HomeView.swift */,
 				8BD5BFA92F3862DF004A0553 /* MainTabView.swift */,
 				8BD5BFA72F3862D0004A0553 /* LoginView.swift */,
@@ -239,6 +253,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				8BD5BF582F386260004A0553 /* Room8App_UI */,
+				8BD5BFCF2F38E7CE004A0553 /* SwiftUI View */,
 			);
 			name = Room8App_UI;
 			packageProductDependencies = (
@@ -368,10 +383,11 @@
 			files = (
 				8BD5BFB62F3867ED004A0553 /* Theme.swift in Sources */,
 				8BD5BFAC2F3862F0004A0553 /* HomeViewModel.swift in Sources */,
-				8BD5BFB02F38632A004A0553 /* CalendarRootView.swift in Sources */,
+				8BD5BFCB2F38E781004A0553 /* TodayScheduleCard.swift in Sources */,
 				8BD5BFB42F386350004A0553 /* MoreView.swift in Sources */,
 				8BD5BF952F386279004A0553 /* ExpenseListView.swift in Sources */,
 				8BD5BF962F386279004A0553 /* AuthService.swift in Sources */,
+				8BD5BFCD2F38E797004A0553 /* TimelineListCard.swift in Sources */,
 				8BD5BF972F386279004A0553 /* Expense.swift in Sources */,
 				8BD5BF982F386279004A0553 /* ExpenseDetailView.swift in Sources */,
 				8BD5BFC42F38849D004A0553 /* AppTab.swift in Sources */,
@@ -383,6 +399,7 @@
 				8BD5BFAA2F3862E1004A0553 /* MainTabView.swift in Sources */,
 				8BD5BF9D2F386279004A0553 /* ChoreService.swift in Sources */,
 				8BD5BF9E2F386279004A0553 /* Chore.swift in Sources */,
+				8BD5BFC92F38E76B004A0553 /* CalendarMonthCard.swift in Sources */,
 				8BD5BFB22F386336004A0553 /* MoneyRootView.swift in Sources */,
 				8BD5BFB82F386B3E004A0553 /* AuthComponents.swift in Sources */,
 				8BD5BF9F2F386279004A0553 /* ExpenseService.swift in Sources */,

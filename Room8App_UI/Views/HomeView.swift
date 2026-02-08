@@ -177,6 +177,7 @@ struct HomeView: View {
                     ActivityRow(text: vm.activity[idx])
                 }
             }
+
         }
         .padding(16)
         .background(Theme.white)
